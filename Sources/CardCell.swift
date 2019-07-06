@@ -35,7 +35,8 @@ import UIKit
     open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
 
-        self.layer.zPosition = CGFloat(layoutAttributes.zIndex)
+        layer.zPosition = CGFloat(layoutAttributes.zIndex)
+        contentView.transform = layoutAttributes.transform
     }
 
     open override func prepareForReuse() {
