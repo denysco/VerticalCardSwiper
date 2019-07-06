@@ -182,11 +182,11 @@ internal class VerticalCardSwiperFlowLayout: UICollectionViewFlowLayout {
 
         if let itemTransform = firstItemTransform {
             let top = isStackOnBottom ? deltaY : deltaY * -1
-            let scale = 1 - deltaY * itemTransform
+            let scale = max(1 - deltaY * itemTransform, 0)
             let translationScale = CGFloat((attributes.zIndex + 1) * 10)
             var t = CGAffineTransform.identity
 
-            t = t.scaledBy(x: scale > 0 ? scale : 0, y: 1)
+            t = t.scaledBy(x: scale, y: scale)
             if isStackingEnabled {
                 t = t.translatedBy(x: 0, y: top * translationScale)
             }
