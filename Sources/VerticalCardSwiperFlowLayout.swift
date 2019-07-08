@@ -37,6 +37,8 @@ internal class VerticalCardSwiperFlowLayout: UICollectionViewFlowLayout {
     internal var isStackOnBottom: Bool = true
     /// Sets how many cards of the stack are visible in the background. Default is 1.
     internal var stackedCardsCount: Int = 1
+    /// Opacity decrease step for cards in the stack.
+    internal var cardOpacityDelta: CGFloat = 0.2
 
     internal override func prepare() {
         super.prepare()
@@ -168,8 +170,15 @@ internal class VerticalCardSwiperFlowLayout: UICollectionViewFlowLayout {
         let deltaY = (finalY - cardMinY) / cardHeight
         transformAttributes(attributes: attributes, deltaY: deltaY)
 
-        attributes.alpha = 1 - (deltaY - CGFloat(stackedCardsCount))
-
+        let offset = (finalY - cardMinY) / (cardHeight + collectionView.contentInset.top)
+        let cardsCount = CGFloat(stackedCardsCount)
+        let goingOffScreen = offset > cardsCount
+        if goingOffScreen {
+            let baseAlpha = 1 - cardsCount * cardOpacityDelta
+            attributes.alpha = baseAlpha - offset + cardsCount
+        } else {
+            attributes.alpha = 1 - (offset * cardOpacityDelta)
+        }
         // Set the attributes frame position to the values we calculated
         origin.x = collectionView.frame.width/2 - attributes.frame.width/2 - collectionView.contentInset.left
         origin.y = finalY
