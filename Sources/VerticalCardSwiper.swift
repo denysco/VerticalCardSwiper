@@ -440,6 +440,10 @@ extension VerticalCardSwiper: UICollectionViewDelegate, UICollectionViewDataSour
             delegate?.didEndScroll?(verticalCardSwiperView: verticalCardSwiperView)
         }
     }
+    
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        delegate?.willEndDragging?(verticalCardSwiperView: verticalCardSwiperView, withVelocity: velocity, targetContentOffset: targetContentOffset)
+    }
 
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         delegate?.didEndScroll?(verticalCardSwiperView: verticalCardSwiperView)

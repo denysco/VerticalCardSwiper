@@ -77,6 +77,8 @@ import Foundation
       - parameter verticalCardSwiperView: The `VerticalCardSwiperView` that displays the cardcells.
      */
     @objc optional func didEndScroll(verticalCardSwiperView: VerticalCardSwiperView)
+    
+    @objc optional func willEndDragging(verticalCardSwiperView: VerticalCardSwiperView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
 
     /**
      Allows you to return the size as a CGSize for each card at their specified index.
